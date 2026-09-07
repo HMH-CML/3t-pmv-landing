@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="3T PMV is Papua New Guinea's complete PMV fleet management platform. Payroll, tax compliance, cashless payments, fleet tracking, staff management — built for PNG operators." />
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#EA580C">
+  <title>3T PMV — Papua New Guinea Fleet Management Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#080808;--bg1:#0f0f0f;--bg2:#161616;--bg3:#1e1e1e;
+      --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+      --orange:#EA580C;--orange2:#f97316;
+      --gold:#FCD116;--gold2:#ffe24d;
+      --text:#F2F2F2;--text2:#A0A0A0;--text3:#606060;
+      --head:'Syne',sans-serif;--body:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
+      --max:1280px;--pad:clamp(1rem,3vw,1.5rem);--r:10px
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;height:64px;gap:24px}
+    nav{display:flex;align-items:center;gap:2px}
+    nav a{font-size:14px;font-weight:500;color:var(--text2);padding:6px 12px;border-radius:6px;transition:color .15s,background .15s}
+    nav a:hover,nav a.active{color:var(--text);background:var(--bg2)}
+    .logo-mark{display:flex;align-items:center;font-family:var(--head);font-weight:800;font-size:22px;letter-spacing:-.03em;color:var(--text)}
+    .logo-mark .pmv{color:var(--orange);font-size:18px;margin-left:4px;padding:2px 8px;background:rgba(234,88,12,.12);border-radius:5px}
+    .logo-sub{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-top:3px}
+    .btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--body);font-weight:600;font-size:14px;padding:8px 18px;border-radius:var(--r);border:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+    .btn-primary{background:var(--orange);color:#fff}
+    .btn-primary:hover{background:var(--orange2)}
+    .btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border2)}
+    .btn-outline:hover{border-color:var(--text2)}
+    .btn-lg{padding:13px 28px;font-size:15px;border-radius:12px}
+    .btn-gold{background:var(--gold);color:#000;font-weight:700}
+    .btn-gold:hover{background:var(--gold2)}
+
+    /* Labels */
+    .label{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;display:block}
+    .label-orange{color:var(--orange)}
+    .label-gold{color:var(--gold)}
+    .section-title{font-family:var(--head);font-weight:800;font-size:clamp(28px,4vw,46px);letter-spacing:-.02em;line-height:1.1;color:var(--text);margin-bottom:16px}
+    .section-sub{font-size:16px;font-weight:300;color:var(--text2);max-width:560px;line-height:1.75}
+    .accent-orange{color:var(--orange)}
+    .accent-gold{color:var(--gold)}
+
+    /* Trust bar */
+    .trustbar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg1);padding:16px 0;overflow:hidden;position:relative}
+    .trustbar::before,.trustbar::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+    .trustbar::before{left:0;background:linear-gradient(to right,var(--bg1),transparent)}
+    .trustbar::after{right:0;background:linear-gradient(to left,var(--bg1),transparent)}
+    .ticker-track{display:flex;width:max-content;animation:ticker 38s linear infinite}
+    @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .ticker-item{display:inline-flex;align-items:center;gap:0;white-space:nowrap}
+    .ticker-label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);padding:0 28px}
+    .ticker-dot{width:4px;height:4px;border-radius:50%;background:var(--border2);flex-shrink:0}
+
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* Hero */
+    .hero{padding:60px 0 70px;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 60% 50%,rgba(234,88,12,.08) 0%,transparent 70%),radial-gradient(ellipse 50% 70% at 10% 80%,rgba(252,209,22,.05) 0%,transparent 60%);pointer-events:none}
+    .hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);background:rgba(234,88,12,.1);border:1px solid rgba(234,88,12,.25);border-radius:100px;padding:5px 14px;margin-bottom:28px}
+    .hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--orange);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+    .hero h1{font-family:var(--head);font-weight:800;font-size:clamp(32px,5.5vw,64px);line-height:1.0;letter-spacing:-.03em;color:var(--text);margin-bottom:24px}
+    .hero-sub{font-size:17px;font-weight:300;color:var(--text2);max-width:520px;line-height:1.75;margin-bottom:36px}
+    .hero-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+    .hero-trust{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+    .hero-trust-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text3)}
+    .hero-trust-item::before{content:'✓';color:var(--gold);font-weight:700}
+
+    /* Dashboard image/mockup area */
+    .dash-wrap{border-radius:14px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(234,88,12,.1)}
+    .dash-placeholder{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:var(--text3)}
+    .dash-mock{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;overflow:hidden}
+    .dash-bar{background:var(--bg1);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:8px}
+    .dash-dot{width:10px;height:10px;border-radius:50%}
+    .dash-title{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em;margin:0 auto}
+    .dash-body{padding:16px}
+    .dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+    .dash-kpi{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+    .dash-kpi-label{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+    .dash-kpi-val{font-family:var(--head);font-weight:800;font-size:18px}
+    .dash-kpi-sub{font-size:9px;color:var(--text3);margin-top:2px}
+    .dash-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .dash-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+    .dash-card-head{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+    .dash-staff-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)}
+    .dash-staff-name{font-size:10px;color:var(--text2)}
+    .dash-staff-badge{font-size:8px;font-family:var(--mono);padding:2px 6px;border-radius:4px}
+    .badge-green{background:rgba(22,163,74,.2);color:#4ade80}
+    .badge-amber{background:rgba(234,88,12,.2);color:#fb923c}
+
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .feat-card{background:var(--bg1);border:1px solid var(--border);border-radius:12px;padding:22px 20px;transition:border-color .2s,transform .2s}
+    .feat-card:hover{border-color:rgba(234,88,12,.3);transform:translateY(-2px)}
+    .feat-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px}
+    .fi-orange{background:rgba(234,88,12,.1);border:1px solid rgba(234,88,12,.2)}
+    .fi-gold{background:rgba(252,209,22,.08);border:1px solid rgba(252,209,22,.2)}
+    .fi-teal{background:rgba(11,107,122,.15);border:1px solid rgba(11,107,122,.25)}
+    .feat-card h3{font-family:var(--head);font-weight:700;font-size:15px;color:var(--text);margin-bottom:6px}
+    .feat-card p{font-size:13px;font-weight:300;color:var(--text2);line-height:1.6}
+    .feat-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(234,88,12,.08);border:1px solid rgba(234,88,12,.15);color:var(--orange);margin-top:10px}
+
+    /* How it works */
+    .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .how-card{text-align:center;padding:32px 24px;background:var(--bg1);border:1px solid var(--border);border-radius:14px;position:relative}
+    .how-num{font-family:var(--head);font-weight:800;font-size:56px;color:rgba(234,88,12,.12);line-height:1;margin-bottom:12px}
+    .how-icon{font-size:28px;margin-bottom:14px}
+    .how-card h3{font-family:var(--head);font-weight:700;font-size:17px;color:var(--text);margin-bottom:8px}
+    .how-card p{font-size:13px;font-weight:300;color:var(--text2);line-height:1.65}
+    .how-arrow{position:absolute;right:-14px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--orange);z-index:2}
+
+    /* Companion apps */
+    .apps-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .app-card{background:var(--bg1);border:1px solid var(--border);border-radius:14px;padding:32px;display:flex;gap:24px;align-items:flex-start;transition:border-color .2s}
+    .app-card:hover{border-color:rgba(234,88,12,.25)}
+    .app-icon-box{width:60px;height:60px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+    .app-card h3{font-family:var(--head);font-weight:700;font-size:18px;color:var(--text);margin-bottom:6px}
+    .app-card p{font-size:14px;font-weight:300;color:var(--text2);line-height:1.65;margin-bottom:14px}
+    .app-url{font-family:var(--mono);font-size:11px;color:var(--orange);letter-spacing:.05em}
+
+    /* Compliance */
+    .compliance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .comp-card{background:var(--bg1);border:1px solid var(--border);border-radius:12px;padding:22px 20px}
+    .comp-card-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .comp-badge{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:5px;font-weight:500}
+    .comp-icon{font-size:22px}
+    .comp-card h3{font-family:var(--head);font-weight:700;font-size:15px;color:var(--text);margin-bottom:6px}
+    .comp-card p{font-size:12px;font-weight:300;color:var(--text2);line-height:1.6}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+    .comp-tag{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--text3)}
+
+    /* Pricing */
+    .pricing-toggle{display:flex;align-items:center;justify-content:center;gap:0;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:4px;width:fit-content;margin:0 auto 40px}
+    .ptog-btn{font-family:var(--mono);font-size:12px;padding:7px 20px;border-radius:5px;border:none;cursor:pointer;transition:all .15s;background:transparent;color:var(--text3)}
+    .ptog-btn.active{background:var(--orange);color:#fff}
+    .pricing-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+    .price-card{background:var(--bg1);border:1px solid var(--border);border-radius:14px;padding:24px 18px;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
+    .price-card:hover{transform:translateY(-3px)}
+    .price-card.featured{border-color:var(--orange);background:rgba(234,88,12,.04)}
+    .price-tier{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+    .price-name{font-family:var(--head);font-weight:800;font-size:17px;color:var(--text);margin-bottom:12px}
+    .price-amount{font-family:var(--head);font-weight:800;font-size:28px;color:var(--text);line-height:1}
+    .price-amount .currency{font-size:16px;font-weight:600;vertical-align:top;margin-top:4px;display:inline-block}
+    .price-amount .period{font-family:var(--mono);font-size:11px;color:var(--text3);font-weight:400}
+    .price-trial{font-size:11px;color:var(--gold);font-family:var(--mono);margin-top:4px;margin-bottom:14px}
+    .price-divider{height:1px;background:var(--border);margin:14px 0}
+    .price-feat{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--text2);margin-bottom:6px;line-height:1.5}
+    .price-feat::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;margin-top:1px}
+    .price-feat.locked{color:var(--text3)}
+    .price-feat.locked::before{content:'–';color:var(--text3)}
+    .price-cta{margin-top:auto;padding-top:14px}
+    .price-badge{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(234,88,12,.15);border:1px solid rgba(234,88,12,.3);color:var(--orange);margin-bottom:6px}
+
+    /* Social proof */
+    .proof-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .proof-card{background:var(--bg1);border:1px solid var(--border);border-radius:12px;padding:24px}
+    .proof-stars{color:var(--gold);font-size:14px;margin-bottom:10px}
+    .proof-text{font-size:14px;font-weight:300;color:var(--text2);line-height:1.7;margin-bottom:14px;font-style:italic}
+    .proof-author{font-size:13px;font-weight:600;color:var(--text)}
+    .proof-role{font-size:12px;color:var(--text3)}
+
+    /* CTA */
+    .cta-section{background:var(--bg1);border-top:1px solid var(--border);padding:80px 0;position:relative;overflow:hidden}
+    .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(234,88,12,.06),transparent 70%);pointer-events:none}
+    .cta-inner{text-align:center;position:relative;z-index:1}
+    .cta-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:32px;margin-bottom:24px}
+    .cta-trust{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+    .cta-trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text3)}
+    .cta-trust-item::before{content:'✓';color:var(--gold);font-weight:700}
+
+    /* Footer */
+    footer{background:var(--bg);border-top:1px solid var(--border);padding:40px 0 24px}
+    .footer-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:32px}
+    .footer-brand p{font-size:13px;color:var(--text3);margin-top:10px;max-width:220px;line-height:1.6}
+    .footer-links h4{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+    .footer-links a{display:block;font-size:13px;color:var(--text3);margin-bottom:7px;transition:color .15s}
+    .footer-links a:hover{color:var(--text)}
+    .footer-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    .footer-bottom p{font-size:11px;color:var(--text3);font-family:var(--mono)}
+    .footer-bottom a{font-size:11px;color:var(--orange);font-family:var(--mono)}
+
+    /* Responsive */
+    @media(max-width:900px){
+      .hero-inner{grid-template-columns:1fr}
+      .dash-mock{display:none}
+      .features-grid{grid-template-columns:repeat(2,1fr)}
+      .pricing-grid{grid-template-columns:repeat(3,1fr)}
+      .proof-strip{grid-template-columns:1fr}
+      .apps-grid{grid-template-columns:1fr}
+      .compliance-grid{grid-template-columns:repeat(2,1fr)}
+      .how-grid{grid-template-columns:1fr}
+      .how-arrow{display:none}
+    }
+    @media(max-width:600px){
+      .features-grid{grid-template-columns:1fr}
+      .pricing-grid{grid-template-columns:1fr}
+      .compliance-grid{grid-template-columns:1fr}
+      nav{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="wrap">
+    <div class="header-inner">
+      <a href="/" style="display:flex;flex-direction:column;line-height:1">
+        <div class="logo-mark">3T<span class="pmv">PMV</span></div>
+        <div class="logo-sub">Fleet Management</div>
+      </a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#apps">Companion apps</a>
+        <a href="#compliance">Compliance</a>
+        <a href="#pricing">Pricing</a>
+      </nav>
+      <a href="https://pmv.3t-ms.com/signup" class="btn btn-primary">Start free trial &#8599;</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="reveal">
+        <div class="hero-eyebrow">Live now &mdash; taking new operators</div>
+        <h1>Run your PMV business <span class="accent-orange">properly.</span></h1>
+        <p class="hero-sub">3T PMV is Papua New Guinea&apos;s only complete fleet management platform built for PMV operators &mdash; payroll, tax compliance, cashless payments, staff tracking, and full fleet control in one system.</p>
+        <div class="hero-actions">
+          <a href="https://pmv.3t-ms.com/signup" class="btn btn-primary btn-lg">Start free trial &#8599;</a>
+          <a href="#features" class="btn btn-outline btn-lg">See all features</a>
+        </div>
+        <div class="hero-trust">
+          <span class="hero-trust-item">21-day free trial</span>
+          <span class="hero-trust-item">PNG Kina pricing</span>
+          <span class="hero-trust-item">No credit card</span>
+          <span class="hero-trust-item">POM support</span>
+        </div>
+      </div>
+
+      <!-- Dashboard mockup — replace img src below with your actual screenshot -->
+      <div class="dash-mock reveal">
+        <div class="dash-bar">
+          <div class="dash-dot" style="background:#EA580C"></div>
+          <div class="dash-dot" style="background:#FCD116;margin-left:4px"></div>
+          <div class="dash-dot" style="background:#22c55e;margin-left:4px"></div>
+          <span class="dash-title">3T PMV &mdash; Dashboard</span>
+        </div>
+        <div class="dash-body">
+          <div class="dash-kpis">
+            <div class="dash-kpi"><div class="dash-kpi-label">Today&apos;s Revenue</div><div class="dash-kpi-val" style="color:#FCD116">K842.50</div><div class="dash-kpi-sub">&#8593; 12% vs yesterday</div></div>
+            <div class="dash-kpi"><div class="dash-kpi-label">Active Fleet</div><div class="dash-kpi-val" style="color:#F2F2F2">6/8</div><div class="dash-kpi-sub">2 off-road today</div></div>
+            <div class="dash-kpi"><div class="dash-kpi-label">Staff on Shift</div><div class="dash-kpi-val" style="color:#4ade80">12</div><div class="dash-kpi-sub">4 drivers, 8 boskru</div></div>
+          </div>
+          <div class="dash-row">
+            <div class="dash-card">
+              <div class="dash-card-head">Staff status</div>
+              <div class="dash-staff-row"><span class="dash-staff-name">John Kapi</span><span class="dash-staff-badge badge-green">On shift</span></div>
+              <div class="dash-staff-row"><span class="dash-staff-name">Mary Wafi</span><span class="dash-staff-badge badge-green">On shift</span></div>
+              <div class="dash-staff-row"><span class="dash-staff-name">Peter Sela</span><span class="dash-staff-badge badge-amber">Off today</span></div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-head">Compliance alerts</div>
+              <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="color:#EA580C;font-size:11px">&#9679;</span><span style="font-size:10px;color:#A0A0A0">Tax return due in 3d</span></div>
+              <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="color:#FCD116;font-size:11px">&#9679;</span><span style="font-size:10px;color:#A0A0A0">Bus 3 roadworthy cert expires 5d</span></div>
+              <div style="display:flex;align-items:center;gap:8px;padding:5px 0"><span style="color:#22c55e;font-size:11px">&#9679;</span><span style="font-size:10px;color:#A0A0A0">Superannuation &mdash; all good</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trustbar">
+  <div class="ticker-track" id="trust-track">
+    <div class="ticker-item"><span class="ticker-label">Tax &amp; Payroll Compliance</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Superannuation Schedules</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">RouteKad Cashless Payments</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Road &amp; Transport Compliance</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Driver &amp; Boskru Apps</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">PNG Kina Pricing</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Fleet Tracking</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Staff ID Cards</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">All 22 Provinces</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Payroll &amp; Payslips</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Port Moresby Support</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Incident Reporting</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Built for Papua New Guinea</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Company Registration Compliance</span><span class="ticker-dot"></span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item"><span class="ticker-label">Tax &amp; Payroll Compliance</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Superannuation Schedules</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">RouteKad Cashless Payments</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Road &amp; Transport Compliance</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Driver &amp; Boskru Apps</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">PNG Kina Pricing</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Fleet Tracking</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Staff ID Cards</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">All 22 Provinces</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Payroll &amp; Payslips</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Port Moresby Support</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Incident Reporting</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Built for Papua New Guinea</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Company Registration Compliance</span><span class="ticker-dot"></span></div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features" style="padding:80px 0;background:var(--bg)">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:48px">
+      <span class="label label-orange">Everything you need</span>
+      <h2 class="section-title">One platform.<br>Complete control.</h2>
+      <p class="section-sub">Every module your PMV business needs &mdash; connected, compliant, and built for how PNG operators actually work.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-orange">&#128663;</div>
+        <h3>Fleet Management</h3>
+        <p>Register every vehicle with full details &mdash; registration plate, make, model, seating capacity, insurance status, and roadworthiness. Track licensing and compliance per bus.</p>
+        <span class="feat-tag">Road &amp; Transport Compliance</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-gold">&#128188;</div>
+        <h3>Staff &amp; Payroll</h3>
+        <p>Manage every driver and conductor with tax numbers, superannuation numbers, and pay grades. Auto-calculate Salary &amp; Wages Tax and generate compliant payroll exports and payslips.</p>
+        <span class="feat-tag">Tax &amp; Superannuation</span>
+      </div>
+      <div class="feat-card reveal" style="border-color:rgba(252,209,22,.12)">
+        <div class="feat-icon fi-gold">&#128179;</div>
+        <h3>RouteKad Payments</h3>
+        <p>Issue RouteKad cashless payment cards to regular passengers. Conductors scan cards via the Boskru app. Fares post automatically to revenue &mdash; no cash handling required.</p>
+        <span class="feat-tag">Cashless &middot; Real-time</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-orange">&#128203;</div>
+        <h3>Operations</h3>
+        <p>Schedule and manage shifts. Record and investigate incidents. Conduct pre- and post-trip vehicle checks. All logged, timestamped, and retrievable as formal reports.</p>
+        <span class="feat-tag">Incidents &middot; Checks</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-teal">&#9200;</div>
+        <h3>Timesheets</h3>
+        <p>Drivers clock in and out via the Driver companion app. Conductors via the Boskru app. Attendance syncs to timesheets automatically &mdash; no paper registers or manual entry.</p>
+        <span class="feat-tag">Real-time &middot; Automated</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-gold">&#128200;</div>
+        <h3>Revenue &amp; Payments</h3>
+        <p>Track daily revenue by route, by bus, and by payment type. Reconcile accounts, record expenses, and see your profit margin in real time from the dashboard.</p>
+        <span class="feat-tag">Cash &middot; RouteKad</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-orange">&#10003;</div>
+        <h3>Compliance Tracking</h3>
+        <p>Never miss a deadline. 3T PMV tracks every tax, superannuation, transport licensing, and company compliance obligation with due date alerts and automated monthly reminders.</p>
+        <span class="feat-tag">All PNG Authorities</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-teal">&#128196;</div>
+        <h3>Reports</h3>
+        <p>Revenue summaries, payroll reports, fleet utilisation, staff timesheets, compliance status, and custom period exports &mdash; all printable and downloadable in CSV or print format.</p>
+        <span class="feat-tag">Export &middot; Print</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="padding:80px 0;background:var(--bg1);border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:48px">
+      <span class="label" style="text-align:center">Simple setup</span>
+      <h2 class="section-title" style="text-align:center">Up and running in minutes</h2>
+      <p class="section-sub" style="margin:0 auto;text-align:center">No IT department. No long onboarding. Sign up and start managing your fleet today.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-card reveal" style="position:relative">
+        <div class="how-num">01</div>
+        <div class="how-icon">&#128221;</div>
+        <h3>Sign up &amp; set up your organisation</h3>
+        <p>Create your account in under 5 minutes. Enter your company name, registration number, tax ID, and banking details. This information flows automatically into payslips, invoices, and compliance documents.</p>
+        <div class="how-arrow">&#8594;</div>
+      </div>
+      <div class="how-card reveal" style="position:relative">
+        <div class="how-num">02</div>
+        <div class="how-icon">&#128663;</div>
+        <h3>Add your fleet and staff</h3>
+        <p>Register every bus with its plate, seating capacity, insurance, and licensing details. Add every driver and conductor with their tax number, superannuation number, and pay grade. Set their PIN for the companion apps.</p>
+        <div class="how-arrow">&#8594;</div>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-num">03</div>
+        <div class="how-icon">&#128196;</div>
+        <h3>Run payroll, track revenue, file compliance</h3>
+        <p>Run payroll and generate payslips. Export your tax file for lodgement. Generate your superannuation schedule. See your daily revenue per bus and per route. Monitor every compliance deadline from the dashboard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPANION APPS -->
+<section id="apps" style="padding:80px 0;background:var(--bg)">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:48px">
+      <span class="label label-gold">Companion apps</span>
+      <h2 class="section-title">Your team works from the bus stop.</h2>
+      <p class="section-sub">Two purpose-built companion apps for your drivers and conductors. Installed as PWAs on any phone &mdash; no app store required.</p>
+    </div>
+    <div class="apps-grid">
+      <div class="app-card reveal">
+        <div class="app-icon-box" style="background:rgba(234,88,12,.1);border:1px solid rgba(234,88,12,.2)">&#128661;</div>
+        <div>
+          <h3>Driver App</h3>
+          <p>Drivers log in with their staff number and PIN. Complete pre-trip and post-trip vehicle checks. Clock in and out of shifts. Log fuel purchases directly from the bus. All data syncs to the main app in real time.</p>
+          <span class="app-url">pmv-driver.3t-ms.com</span>
+        </div>
+      </div>
+      <div class="app-card reveal">
+        <div class="app-icon-box" style="background:rgba(252,209,22,.08);border:1px solid rgba(252,209,22,.15)">&#127984;</div>
+        <div>
+          <h3>Boskru (Conductor) App</h3>
+          <p>Conductors scan RouteKad cashless payment cards and count passengers per trip. Clock in and out of shifts. Submit incident reports directly from the bus. All data appears in the main platform instantly.</p>
+          <span class="app-url">pmv-boskru.3t-ms.com</span>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:24px">
+      <div style="background:var(--bg1);border:1px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <span style="font-size:20px">&#128241;</span>
+        <div>
+          <div style="font-family:var(--head);font-weight:700;font-size:14px;color:var(--text);margin-bottom:2px">Installs as a real app &mdash; no app store required</div>
+          <div style="font-size:13px;font-weight:300;color:var(--text2)">Both companion apps are Progressive Web Apps (PWA). Staff visit the URL on their phone, tap &ldquo;Add to home screen&rdquo;, and the app installs with its own icon. Works on Android and iPhone.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE -->
+<section id="compliance" style="padding:80px 0;background:var(--bg1);border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:48px">
+      <span class="label label-orange">PNG regulatory compliance</span>
+      <h2 class="section-title">Every PNG authority.<br>Built in.</h2>
+      <p class="section-sub">Every compliance obligation for a PNG PMV operator is tracked, managed, and exportable from day one &mdash; no setup, no configuration required.</p>
+    </div>
+    <div class="compliance-grid">
+      <div class="comp-card reveal">
+        <div class="comp-card-head">
+          <span class="comp-icon">&#127981;</span>
+          <span class="comp-badge" style="background:rgba(234,88,12,.1);border:1px solid rgba(234,88,12,.2);color:var(--orange)">Tax</span>
+        </div>
+        <h3>Tax Compliance</h3>
+        <p>All employer tax obligations managed in one place. Auto-calculates Salary &amp; Wages Tax (SWT) for every staff member each pay run. Generates compliant tax export files ready to lodge with the tax authority (IRC) online or in person. GST and corporate income tax due dates also tracked.</p>
+        <div class="comp-tags"><span class="comp-tag">SWT</span><span class="comp-tag">GST</span><span class="comp-tag">CIT</span><span class="comp-tag">Tax Export</span><span class="comp-tag">IRC</span></div>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-card-head">
+          <span class="comp-icon">&#127963;</span>
+          <span class="comp-badge" style="background:rgba(252,209,22,.08);border:1px solid rgba(252,209,22,.15);color:var(--gold)">Super</span>
+        </div>
+        <h3>Superannuation</h3>
+        <p>Automatically calculates employer and employee superannuation contributions each payroll run. Generates the schedule export ready for payment to the superannuation fund (Nasfund). Monthly due dates tracked and alerted so you never miss a contribution.</p>
+        <div class="comp-tags"><span class="comp-tag">Employer Contribution</span><span class="comp-tag">Employee Contribution</span><span class="comp-tag">Schedule Export</span><span class="comp-tag">Nasfund</span></div>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-card-head">
+          <span class="comp-icon">&#128663;</span>
+          <span class="comp-badge" style="background:rgba(11,107,122,.15);border:1px solid rgba(11,107,122,.25);color:#4dd0e1">Road</span>
+        </div>
+        <h3>Road &amp; Transport Compliance</h3>
+        <p>Track every vehicle&apos;s road transport registration (RTA), PMV operator permit (CPTA), motor vehicle insurance (MVIL), and all provincial transport authority licences. Expiry alerts ensure no bus operates out of compliance across all 22 provinces.</p>
+        <div class="comp-tags"><span class="comp-tag">RTA</span><span class="comp-tag">CPTA</span><span class="comp-tag">MVIL</span><span class="comp-tag">Provincial PTAs</span><span class="comp-tag">Morobe PTA</span><span class="comp-tag">Madang PTA</span></div>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-card-head">
+          <span class="comp-icon">&#127970;</span>
+          <span class="comp-badge" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:#4ade80">Company</span>
+        </div>
+        <h3>Company Registration Compliance</h3>
+        <p>Tracks your annual company return due date with the company registration authority (IPA). Stores your registration number and company details that automatically flow into payslips, invoices, and compliance documents.</p>
+        <div class="comp-tags"><span class="comp-tag">Annual Return</span><span class="comp-tag">Company Filing</span><span class="comp-tag">IPA</span></div>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-card-head">
+          <span class="comp-icon">&#128202;</span>
+          <span class="comp-badge" style="background:rgba(234,88,12,.1);border:1px solid rgba(234,88,12,.2);color:var(--orange)">Payroll</span>
+        </div>
+        <h3>Payroll &amp; Staff Records</h3>
+        <p>Full payroll system with pay grades, pay periods, allowances, deductions, and payslip generation in PNG Kina. Every staff member&apos;s tax number and superannuation number stored securely. Data retained for the full statutory period as required by law.</p>
+        <div class="comp-tags"><span class="comp-tag">TIN Records</span><span class="comp-tag">Payslips</span><span class="comp-tag">Statutory Retention</span><span class="comp-tag">PGK</span></div>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-card-head">
+          <span class="comp-icon">&#128205;</span>
+          <span class="comp-badge" style="background:rgba(252,209,22,.08);border:1px solid rgba(252,209,22,.15);color:var(--gold)">22 Provinces</span>
+        </div>
+        <h3>All of Papua New Guinea</h3>
+        <p>3T PMV works for operators in every province &mdash; NCD, Morobe, Western Highlands, Madang, East Sepik, and all others. Provincial transport authority licences tracked per vehicle. Cloud-based so you can manage from anywhere.</p>
+        <div class="comp-tags"><span class="comp-tag">All 22 Provinces</span><span class="comp-tag">Cloud-based</span><span class="comp-tag">PNG Timezone (PGT)</span><span class="comp-tag">PGK Currency</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="padding:80px 0;background:var(--bg)">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:16px">
+      <span class="label" style="text-align:center">Pricing</span>
+      <h2 class="section-title" style="text-align:center">Priced in <span class="accent-gold">Papua New Guinea Kina.</span></h2>
+      <p class="section-sub" style="margin:0 auto;text-align:center">No USD billing. No currency conversion. Every plan includes a 21-day free trial &mdash; no credit card required to start.</p>
+    </div>
+
+    <!-- Founding offer -->
+    <div class="reveal" style="margin-bottom:24px">
+      <div style="background:rgba(234,88,12,.06);border:1px solid rgba(234,88,12,.2);border-radius:12px;padding:14px 20px;text-align:center;max-width:560px;margin:0 auto">
+        <span style="font-size:16px">&#127881;</span>
+        <strong style="color:var(--orange);font-family:var(--head)"> Founding offer &mdash;</strong>
+        <span style="font-size:14px;color:var(--text2)"> First 10 subscribers per plan get <strong style="color:var(--orange)">20% off, locked for life.</strong></span>
+      </div>
+    </div>
+
+    <!-- Toggle -->
+    <div class="reveal">
+      <div class="pricing-toggle" style="margin-bottom:32px">
+        <button class="ptog-btn active" id="tog-monthly" onclick="setPricing('monthly')">Monthly</button>
+        <button class="ptog-btn" id="tog-annual" onclick="setPricing('annual')">&nbsp;Annual &nbsp;<span style="color:var(--gold);font-size:10px">2 months free</span>&nbsp;</button>
+      </div>
+    </div>
+
+    <!-- Plan cards -->
+    <div class="pricing-grid reveal">
+
+      <!-- Starter -->
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-name" style="font-size:13px;color:var(--text2);font-family:var(--body);font-weight:400;margin-bottom:6px">Up to 2 vehicles</div>
+        <div style="font-family:var(--head);font-weight:800;font-size:26px;color:var(--text);line-height:1">K<span id="p0">499</span></div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:4px">/month</div>
+        <div id="yr0" style="display:none;font-family:var(--mono);font-size:10px;color:var(--gold);margin-bottom:4px">K4,990/yr &middot; save K998</div>
+        <div class="price-trial">&#9733; 21-day free trial</div>
+        <div class="price-divider"></div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px">Capacity</div>
+        <div class="price-feat">2 vehicles &middot; 2 users</div>
+        <div class="price-feat">2 companion app devices/vehicle</div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:8px 0 6px">Core</div>
+        <div class="price-feat">Dashboard &amp; fleet management</div>
+        <div class="price-feat">Staff, routes &amp; operations</div>
+        <div class="price-feat">Payroll (SWT + superannuation)</div>
+        <div class="price-feat">Revenue &amp; treasury</div>
+        <div class="price-feat">Compliance reminders</div>
+        <div class="price-feat">10 report tabs</div>
+        <div class="price-feat">10 document slots</div>
+        <div class="price-feat">12 months data retention</div>
+        <div class="price-feat">Email support</div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:8px 0 6px">Not included</div>
+        <div class="price-feat locked">Compliance auto-engine</div>
+        <div class="price-feat locked">RouteKad cashless</div>
+        <div class="price-feat locked">Advanced reports</div>
+        <div class="price-cta"><a href="https://pmv.3t-ms.com/signup" class="btn btn-outline" style="width:100%;justify-content:center;font-size:13px">Start free trial</a></div>
+      </div>
+
+      <!-- Growth -->
+      <div class="price-card">
+        <div class="price-tier">Growth</div>
+        <div class="price-name" style="font-size:13px;color:var(--text2);font-family:var(--body);font-weight:400;margin-bottom:6px">Up to 4 vehicles</div>
+        <div style="font-family:var(--head);font-weight:800;font-size:26px;color:var(--text);line-height:1">K<span id="p1">799</span></div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:4px">/month</div>
+        <div id="yr1" style="display:none;font-family:var(--mono);font-size:10px;color:var(--gold);margin-bottom:4px">K7,990/yr &middot; save K1,598</div>
+        <div class="price-trial">&#9733; 21-day free trial</div>
+        <div class="price-divider"></div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px">Capacity</div>
+        <div class="price-feat">4 vehicles &middot; 4 users</div>
+        <div class="price-feat">2 companion app devices/vehicle</div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:8px 0 6px">Everything in Starter plus</div>
+        <div class="price-feat">Compliance auto-engine</div>
+        <div class="price-feat">RouteKad cashless + leaderboard</div>
+        <div class="price-feat">Advanced reports &amp; analytics</div>
+        <div class="price-feat">Plain-English insights</div>
+        <div class="price-feat">Vehicle &amp; route P&amp;L</div>
+        <div class="price-feat">Staff performance scorecards</div>
+        <div class="price-feat">Fuel efficiency benchmarking</div>
+        <div class="price-feat">GPS fleet tracking add-on <span style="color:var(--text3);font-size:10px">(optional hardware)</span></div>
+        <div class="price-feat">18 report tabs</div>
+        <div class="price-feat">50 document slots</div>
+        <div class="price-feat">2 years data retention</div>
+        <div class="price-feat">Email + phone support</div>
+        <div class="price-cta"><a href="https://pmv.3t-ms.com/signup" class="btn btn-outline" style="width:100%;justify-content:center;font-size:13px">Start free trial</a></div>
+      </div>
+
+      <!-- Professional — FEATURED -->
+      <div class="price-card featured">
+        <div class="price-badge">Most popular</div>
+        <div class="price-tier">Professional</div>
+        <div class="price-name" style="font-size:13px;color:var(--text2);font-family:var(--body);font-weight:400;margin-bottom:6px">Up to 6 vehicles</div>
+        <div style="font-family:var(--head);font-weight:800;font-size:26px;color:var(--text);line-height:1">K<span id="p2">1,099</span></div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:4px">/month</div>
+        <div id="yr2" style="display:none;font-family:var(--mono);font-size:10px;color:var(--gold);margin-bottom:4px">K10,990/yr &middot; save K2,198</div>
+        <div class="price-trial">&#9733; 21-day free trial</div>
+        <div class="price-divider"></div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px">Capacity</div>
+        <div class="price-feat">6 vehicles &middot; 6 users</div>
+        <div class="price-feat">2 companion app devices/vehicle</div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:8px 0 6px">Everything in Growth plus</div>
+        <div class="price-feat">Budgeting &amp; variance tracking</div>
+        <div class="price-feat">Performance targets (KPIs)</div>
+        <div class="price-feat">Fuel auto-tracking (OCR)</div>
+        <div class="price-feat">Push notifications</div>
+        <div class="price-feat">Fuel receipt OCR scan</div>
+        <div class="price-feat">GPS fleet tracking add-on <span style="color:var(--text3);font-size:10px">(optional &mdash; with or without fuel monitoring)</span></div>
+        <div class="price-feat">Passenger-counter camera add-on</div>
+        <div class="price-feat">20 report tabs</div>
+        <div class="price-feat">100 document slots</div>
+        <div class="price-feat">3 years data retention</div>
+        <div class="price-cta"><a href="https://pmv.3t-ms.com/signup" class="btn btn-primary" style="width:100%;justify-content:center;font-size:13px">Start free trial</a></div>
+      </div>
+
+      <!-- Premium -->
+      <div class="price-card">
+        <div class="price-tier">Premium</div>
+        <div class="price-name" style="font-size:13px;color:var(--text2);font-family:var(--body);font-weight:400;margin-bottom:6px">Up to 8 vehicles</div>
+        <div style="font-family:var(--head);font-weight:800;font-size:26px;color:var(--text);line-height:1">K<span id="p3">1,399</span></div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:4px">/month</div>
+        <div id="yr3" style="display:none;font-family:var(--mono);font-size:10px;color:var(--gold);margin-bottom:4px">K13,990/yr &middot; save K2,798</div>
+        <div class="price-trial">&#9733; 21-day free trial</div>
+        <div class="price-divider"></div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px">Capacity</div>
+        <div class="price-feat">8 vehicles &middot; 8 users</div>
+        <div class="price-feat">2 companion app devices/vehicle</div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:8px 0 6px">Everything in Professional plus</div>
+        <div class="price-feat">All Professional features</div>
+        <div class="price-feat">20 report tabs</div>
+        <div class="price-feat">200 document slots</div>
+        <div class="price-feat">4 years data retention</div>
+        <div class="price-feat">Priority support</div>
+        <div class="price-cta"><a href="https://pmv.3t-ms.com/signup" class="btn btn-outline" style="width:100%;justify-content:center;font-size:13px">Start free trial</a></div>
+      </div>
+
+      <!-- Elite -->
+      <div class="price-card">
+        <div class="price-tier">Elite</div>
+        <div class="price-name" style="font-size:13px;color:var(--text2);font-family:var(--body);font-weight:400;margin-bottom:6px">Up to 10 vehicles</div>
+        <div style="font-family:var(--head);font-weight:800;font-size:26px;color:var(--text);line-height:1">K<span id="p4">1,799</span></div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:4px">/month</div>
+        <div id="yr4" style="display:none;font-family:var(--mono);font-size:10px;color:var(--gold);margin-bottom:4px">K17,990/yr &middot; save K3,598</div>
+        <div class="price-trial">&#9733; 21-day free trial</div>
+        <div class="price-divider"></div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px">Capacity</div>
+        <div class="price-feat">10 vehicles &middot; 10 users</div>
+        <div class="price-feat">2 companion app devices/vehicle</div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:8px 0 6px">Everything in Premium plus</div>
+        <div class="price-feat">Custom reports &amp; exports</div>
+        <div class="price-feat">21 report tabs</div>
+        <div class="price-feat">500 document slots</div>
+        <div class="price-feat">5 years data retention</div>
+        <div class="price-feat">Priority support</div>
+        <div class="price-cta"><a href="https://pmv.3t-ms.com/signup" class="btn btn-outline" style="width:100%;justify-content:center;font-size:13px">Start free trial</a></div>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="price-card">
+        <div class="price-tier">Enterprise</div>
+        <div class="price-name" style="font-size:13px;color:var(--text2);font-family:var(--body);font-weight:400;margin-bottom:6px">Unlimited vehicles</div>
+        <div style="font-family:var(--head);font-weight:800;font-size:26px;color:var(--text);line-height:1">K<span id="p5">2,499</span></div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:4px">/month</div>
+        <div id="yr5" style="display:none;font-family:var(--mono);font-size:10px;color:var(--gold);margin-bottom:4px">K24,990/yr &middot; save K4,998</div>
+        <div class="price-trial">&#9733; 21-day free trial</div>
+        <div class="price-divider"></div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px">Capacity</div>
+        <div class="price-feat">Unlimited vehicles &amp; users</div>
+        <div class="price-feat">Unlimited companion devices</div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:8px 0 6px">Everything in Elite plus</div>
+        <div class="price-feat">3T MEM group integration</div>
+        <div class="price-feat">API access (coming soon)</div>
+        <div class="price-feat">Unlimited document library</div>
+        <div class="price-feat">Unlimited data retention</div>
+        <div class="price-feat">Dedicated SLA support</div>
+        <div class="price-cta"><a href="mailto:admin@3t-ms.com?subject=3T PMV Enterprise" class="btn btn-gold" style="width:100%;justify-content:center;font-size:13px">Contact us</a></div>
+      </div>
+
+    </div>
+
+    <!-- Annual billing note + how plans differ -->
+    <div class="reveal" style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:var(--bg1);border:1px solid var(--border);border-radius:12px;padding:18px 20px">
+        <div style="font-size:16px;margin-bottom:6px">&#128161;</div>
+        <div style="font-family:var(--head);font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px">Annual billing</div>
+        <div style="font-size:13px;font-weight:300;color:var(--text2)">Pay for 10 months, get 12 &mdash; 2 months free on all plans.</div>
+      </div>
+      <div style="background:rgba(234,88,12,.04);border:1px solid rgba(234,88,12,.15);border-radius:12px;padding:18px 20px">
+        <div style="font-size:16px;margin-bottom:6px">&#128241;</div>
+        <div style="font-family:var(--head);font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px">How the plans differ</div>
+        <div style="font-size:13px;font-weight:300;color:var(--text2)">All plans include the core system &mdash; fleet, staff, payroll, revenue, compliance, and companion apps. Higher tiers unlock RouteKad cashless, compliance auto-engine, advanced analytics, OCR fuel scanning, and optional GPS/fuel-tracking hardware. <a href="https://pmv.3t-ms.com" style="color:var(--orange)">See full comparison &#8594;</a></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section style="padding:72px 0;background:var(--bg1);border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:40px;text-align:center">
+      <span class="label" style="text-align:center">Why operators switch</span>
+      <h2 class="section-title" style="text-align:center">Built for the problems PNG PMV operators actually have.</h2>
+    </div>
+    <div class="proof-strip reveal">
+      <div class="proof-card">
+        <p class="proof-text">Payroll used to mean an afternoon with a calculator and a notebook every fortnight. 3T PMV calculates it automatically from logged hours &mdash; and the SWT export goes straight to what the IRC needs.</p>
+        <div class="proof-author">Payroll, done in minutes</div>
+        <div class="proof-role">Not hours</div>
+      </div>
+      <div class="proof-card">
+        <p class="proof-text">Missing a licence renewal or a safety certificate is easy when you're also driving and managing staff. 3T PMV reminds you 30 days out, not the day it lapses.</p>
+        <div class="proof-author">Compliance, tracked automatically</div>
+        <div class="proof-role">No more close calls</div>
+      </div>
+      <div class="proof-card">
+        <p class="proof-text">Know which bus made the most money on which route, every day &mdash; not just at the end of the month. Real visibility into where your revenue actually comes from.</p>
+        <div class="proof-author">Revenue, by route and by bus</div>
+        <div class="proof-role">Decisions, backed by real numbers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="wrap">
+    <div class="cta-inner reveal">
+      <span class="label" style="display:block;text-align:center;margin-bottom:16px">Get started today</span>
+      <h2 class="section-title" style="text-align:center;font-size:clamp(28px,5vw,52px)">Ready to run your fleet properly?</h2>
+      <p class="section-sub" style="margin:16px auto 0;text-align:center">Start your 21-day free trial today. No credit card. No commitment. Set up in minutes. Port Moresby-based support team ready to help you get started.</p>
+      <div class="cta-actions">
+        <a href="https://pmv.3t-ms.com/signup" class="btn btn-primary btn-lg">Start free trial &#8599;</a>
+        <a href="mailto:admin@3t-ms.com?subject=3T PMV Enquiry" class="btn btn-outline btn-lg">Talk to us</a>
+      </div>
+      <div class="cta-trust">
+        <span class="cta-trust-item">21-day free trial</span>
+        <span class="cta-trust-item">PNG Kina pricing</span>
+        <span class="cta-trust-item">No credit card required</span>
+        <span class="cta-trust-item">Port Moresby support</span>
+        <span class="cta-trust-item">Cancel anytime</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div style="display:flex;flex-direction:column;line-height:1">
+          <div class="logo-mark" style="font-size:20px">3T<span class="pmv">PMV</span></div>
+          <div class="logo-sub">Fleet Management</div>
+        </div>
+        <p>Papua New Guinea&apos;s complete PMV fleet management platform.</p>
+        <p style="margin-top:8px"><a href="mailto:admin@3t-ms.com" style="color:var(--orange);font-size:12px;font-family:var(--mono)">admin@3t-ms.com</a></p>
+        <p style="font-size:11px;color:var(--text3);margin-top:4px;font-family:var(--mono)">Port Moresby, NCD, PNG</p>
+      </div>
+      <div class="footer-links">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#apps">Companion apps</a>
+        <a href="#compliance">Compliance</a>
+        <a href="#pricing">Pricing</a>
+        <a href="https://pmv.3t-ms.com/signup">Start free trial</a>
+      </div>
+      <div class="footer-links">
+        <h4>Platform</h4>
+        <a href="https://3t-ms.com">3T Management Systems</a>
+        <a href="https://pmv-driver.3t-ms.com">Driver app</a>
+        <a href="https://pmv-boskru.3t-ms.com">Boskru app</a>
+        <a href="https://3t-ms.com/#mem">3T MEM</a>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <a href="https://3t-ms.com/#about">About HMH CML</a>
+        <a href="https://3t-ms.com/#contact">Contact us</a>
+        <a href="mailto:admin@3t-ms.com?subject=Partnership Enquiry">Partnerships</a>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Refund Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 HMH Central Management Ltd &middot; Port Moresby, NCD, Papua New Guinea</p>
+      <a href="mailto:admin@3t-ms.com">admin@3t-ms.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)} }),
+    {threshold:0.08,rootMargin:'0px 0px -30px 0px'}
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Trust bar
+  const track = document.getElementById('trust-track');
+  if(track){
+    track.addEventListener('mouseenter', () => track.style.animationPlayState='paused');
+    track.addEventListener('mouseleave', () => track.style.animationPlayState='running');
+    track.addEventListener('touchstart', () => track.style.animationPlayState='paused',{passive:true});
+    track.addEventListener('touchend',   () => track.style.animationPlayState='running',{passive:true});
+  }
+
+  // Pricing toggle monthly/annual
+  const monthly = ['499','799','1,099','1,399','1,799','2,499'];
+  const annual  = ['416','665','915','1,165','1,499','2,082']; // pay 10 get 12 = ÷10×annual
+  function setPricing(mode){
+    monthly.forEach((p,i) => {
+      const el = document.getElementById('p'+i);
+      if(el) el.textContent = mode==='annual' ? annual[i] : monthly[i];
+      const yr = document.getElementById('yr'+i);
+      if(yr) yr.style.display = mode==='annual' ? 'block' : 'none';
+    });
+    document.getElementById('tog-monthly').classList.toggle('active', mode==='monthly');
+    document.getElementById('tog-annual').classList.toggle('active', mode==='annual');
+  }
+
+  // Active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if(window.scrollY >= s.offsetTop - 100) cur = s.id });
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+  },{passive:true});
+</script>
+</body>
+</html>
