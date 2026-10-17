@@ -3,11 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="3T PMV is Papua New Guinea's complete PMV fleet management platform. Payroll, tax compliance, cashless payments, fleet tracking, staff management — built for PNG operators." />
+  <meta name="description" content="3T PMV is Papua New Guinea's complete PMV fleet management platform. Payroll, tax compliance, cashless payments, licence reminders, daily close, optional GPS — built for PNG operators." />
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#EA580C">
+  <link rel="canonical" href="https://3tpmv.3t-ms.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="3T PMV" />
+  <meta property="og:title" content="3T PMV — Run your PMV business properly" />
+  <meta property="og:description" content="Fleet, staff, payroll, RouteKad cashless fares and compliance in one place. Built in Port Moresby for PNG PMV operators. 21-day free trial." />
+  <meta property="og:url" content="https://3tpmv.3t-ms.com/" />
+  <meta property="og:image" content="https://3tpmv.3t-ms.com/images/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <title>3T PMV — Papua New Guinea Fleet Management Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -107,6 +115,20 @@
     .badge-green{background:rgba(22,163,74,.2);color:#4ade80}
     .badge-amber{background:rgba(234,88,12,.2);color:#fb923c}
 
+    /* Screenshots */
+    .hero-shot{position:relative;height:620px}
+    .hero-shot img{height:auto;position:absolute;filter:drop-shadow(0 30px 60px rgba(0,0,0,.6)) drop-shadow(0 0 40px rgba(234,88,12,.12))}
+    .hero-shot .hs1{width:330px;left:6%;top:0}
+    .hero-shot .hs2{width:330px;right:2%;top:70px}
+    .shots{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;align-items:start}
+    .shot{text-align:center}
+    .shot img{width:100%;height:auto;filter:drop-shadow(0 18px 36px rgba(0,0,0,.55))}
+    .shot h3{font-family:var(--head);font-weight:700;font-size:14px;color:var(--text);margin:14px 0 4px}
+    .shot p{font-size:12px;font-weight:300;color:var(--text2);line-height:1.55}
+    .demo-note{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);text-align:center;margin-top:28px}
+    .btn-wa{background:#25D366;color:#06260f}
+    .btn-wa:hover{background:#3be37c}
+
     /* Features */
     .features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
     .feat-card{background:var(--bg1);border:1px solid var(--border);border-radius:12px;padding:22px 20px;transition:border-color .2s,transform .2s}
@@ -201,7 +223,9 @@
     /* Responsive */
     @media(max-width:900px){
       .hero-inner{grid-template-columns:1fr}
-      .dash-mock{display:none}
+      .hero-shot{height:520px;max-width:520px;margin:0 auto;width:100%}
+      .hero-shot .hs1{width:260px}.hero-shot .hs2{width:260px}
+      .shots{grid-template-columns:repeat(3,1fr)}
       .features-grid{grid-template-columns:repeat(2,1fr)}
       .pricing-grid{grid-template-columns:repeat(3,1fr)}
       .proof-strip{grid-template-columns:1fr}
@@ -215,6 +239,8 @@
       .pricing-grid{grid-template-columns:1fr}
       .compliance-grid{grid-template-columns:1fr}
       nav{display:none}
+      .hero-shot{height:430px}.hero-shot .hs1,.hero-shot .hs2{width:210px}
+      .shots{grid-template-columns:repeat(2,1fr);gap:14px}
     }
   </style>
 </head>
@@ -230,6 +256,7 @@
       </a>
       <nav>
         <a href="#features">Features</a>
+        <a href="#see">See it</a>
         <a href="#how">How it works</a>
         <a href="#apps">Companion apps</a>
         <a href="#compliance">Compliance</a>
@@ -247,7 +274,7 @@
       <div class="reveal">
         <div class="hero-eyebrow">Live now &mdash; taking new operators</div>
         <h1>Run your PMV business <span class="accent-orange">properly.</span></h1>
-        <p class="hero-sub">3T PMV is Papua New Guinea&apos;s only complete fleet management platform built for PMV operators &mdash; payroll, tax compliance, cashless payments, staff tracking, and full fleet control in one system.</p>
+        <p class="hero-sub">3T PMV is Papua New Guinea&apos;s only complete fleet management platform built for PMV operators &mdash; payroll, tax compliance, cashless RouteKad fares, licence reminders, daily close and full fleet control in one system.</p>
         <div class="hero-actions">
           <a href="https://pmv.3t-ms.com/signup" class="btn btn-primary btn-lg">Start free trial &#8599;</a>
           <a href="#features" class="btn btn-outline btn-lg">See all features</a>
@@ -260,35 +287,9 @@
         </div>
       </div>
 
-      <!-- Dashboard mockup — replace img src below with your actual screenshot -->
-      <div class="dash-mock reveal">
-        <div class="dash-bar">
-          <div class="dash-dot" style="background:#EA580C"></div>
-          <div class="dash-dot" style="background:#FCD116;margin-left:4px"></div>
-          <div class="dash-dot" style="background:#22c55e;margin-left:4px"></div>
-          <span class="dash-title">3T PMV &mdash; Dashboard</span>
-        </div>
-        <div class="dash-body">
-          <div class="dash-kpis">
-            <div class="dash-kpi"><div class="dash-kpi-label">Today&apos;s Revenue</div><div class="dash-kpi-val" style="color:#FCD116">K842.50</div><div class="dash-kpi-sub">&#8593; 12% vs yesterday</div></div>
-            <div class="dash-kpi"><div class="dash-kpi-label">Active Fleet</div><div class="dash-kpi-val" style="color:#F2F2F2">6/8</div><div class="dash-kpi-sub">2 off-road today</div></div>
-            <div class="dash-kpi"><div class="dash-kpi-label">Staff on Shift</div><div class="dash-kpi-val" style="color:#4ade80">12</div><div class="dash-kpi-sub">4 drivers, 8 boskru</div></div>
-          </div>
-          <div class="dash-row">
-            <div class="dash-card">
-              <div class="dash-card-head">Staff status</div>
-              <div class="dash-staff-row"><span class="dash-staff-name">John Kapi</span><span class="dash-staff-badge badge-green">On shift</span></div>
-              <div class="dash-staff-row"><span class="dash-staff-name">Mary Wafi</span><span class="dash-staff-badge badge-green">On shift</span></div>
-              <div class="dash-staff-row"><span class="dash-staff-name">Peter Sela</span><span class="dash-staff-badge badge-amber">Off today</span></div>
-            </div>
-            <div class="dash-card">
-              <div class="dash-card-head">Compliance alerts</div>
-              <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="color:#EA580C;font-size:11px">&#9679;</span><span style="font-size:10px;color:#A0A0A0">Tax return due in 3d</span></div>
-              <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span style="color:#FCD116;font-size:11px">&#9679;</span><span style="font-size:10px;color:#A0A0A0">Bus 3 roadworthy cert expires 5d</span></div>
-              <div style="display:flex;align-items:center;gap:8px;padding:5px 0"><span style="color:#22c55e;font-size:11px">&#9679;</span><span style="font-size:10px;color:#A0A0A0">Superannuation &mdash; all good</span></div>
-            </div>
-          </div>
-        </div>
+      <div class="hero-shot reveal">
+        <img class="hs1" src="images/pmv-dashboard.webp" width="640" height="1210" alt="3T PMV dashboard showing today's revenue, expenses, profit, hours worked by staff and alerts (demo data)" />
+        <img class="hs2" src="images/pmv-fleet.webp" width="640" height="1210" alt="3T PMV bus page showing PMV licence, MVIL, safety sticker and roadworthy expiry days (demo data)" />
       </div>
     </div>
   </div>
@@ -298,13 +299,14 @@
 <div class="trustbar">
   <div class="ticker-track" id="trust-track">
     <div class="ticker-item"><span class="ticker-label">Tax &amp; Payroll Compliance</span><span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="ticker-label">Superannuation Schedules</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Staff Fund &amp; Superannuation</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">RouteKad Cashless Payments</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">Road &amp; Transport Compliance</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">Driver &amp; Boskru Apps</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">PNG Kina Pricing</span><span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="ticker-label">Fleet Tracking</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Optional GPS &amp; Fuel Monitoring</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">Staff ID Cards</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Day Close</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">All 22 Provinces</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">Payroll &amp; Payslips</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">Port Moresby Support</span><span class="ticker-dot"></span></div>
@@ -313,13 +315,14 @@
     <div class="ticker-item"><span class="ticker-label">Company Registration Compliance</span><span class="ticker-dot"></span></div>
     <!-- duplicate for seamless loop -->
     <div class="ticker-item"><span class="ticker-label">Tax &amp; Payroll Compliance</span><span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="ticker-label">Superannuation Schedules</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Staff Fund &amp; Superannuation</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">RouteKad Cashless Payments</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">Road &amp; Transport Compliance</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">Driver &amp; Boskru Apps</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">PNG Kina Pricing</span><span class="ticker-dot"></span></div>
-    <div class="ticker-item"><span class="ticker-label">Fleet Tracking</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Optional GPS &amp; Fuel Monitoring</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">Staff ID Cards</span><span class="ticker-dot"></span></div>
+    <div class="ticker-item"><span class="ticker-label">Day Close</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">All 22 Provinces</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">Payroll &amp; Payslips</span><span class="ticker-dot"></span></div>
     <div class="ticker-item"><span class="ticker-label">Port Moresby Support</span><span class="ticker-dot"></span></div>
@@ -335,20 +338,20 @@
     <div class="reveal" style="margin-bottom:48px">
       <span class="label label-orange">Everything you need</span>
       <h2 class="section-title">One platform.<br>Complete control.</h2>
-      <p class="section-sub">Every module your PMV business needs &mdash; connected, compliant, and built for how PNG operators actually work.</p>
+      <p class="section-sub">Every module your PMV business needs &mdash; connected, compliant, and built for how PNG operators actually work. Switch on only what you use.</p>
     </div>
     <div class="features-grid">
       <div class="feat-card reveal">
         <div class="feat-icon fi-orange">&#128663;</div>
         <h3>Fleet Management</h3>
-        <p>Register every vehicle with full details &mdash; registration plate, make, model, seating capacity, insurance status, and roadworthiness. Track licensing and compliance per bus.</p>
-        <span class="feat-tag">Road &amp; Transport Compliance</span>
+        <p>Register every bus with its plate, make, model and seats. Track the PMV licence, MVIL registration, safety sticker and roadworthy certificate for each one, with reminders before they expire.</p>
+        <span class="feat-tag">Licences &middot; Reminders</span>
       </div>
       <div class="feat-card reveal">
         <div class="feat-icon fi-gold">&#128188;</div>
         <h3>Staff &amp; Payroll</h3>
-        <p>Manage every driver and conductor with tax numbers, superannuation numbers, and pay grades. Auto-calculate Salary &amp; Wages Tax and generate compliant payroll exports and payslips.</p>
-        <span class="feat-tag">Tax &amp; Superannuation</span>
+        <p>Manage every driver and conductor with tax numbers and pay grades. Pay is worked out from approved timesheets, Salary &amp; Wages Tax is calculated for you, and payslips are ready to download.</p>
+        <span class="feat-tag">Tax &middot; Staff Fund</span>
       </div>
       <div class="feat-card reveal" style="border-color:rgba(252,209,22,.12)">
         <div class="feat-icon fi-gold">&#128179;</div>
@@ -365,13 +368,13 @@
       <div class="feat-card reveal">
         <div class="feat-icon fi-teal">&#9200;</div>
         <h3>Timesheets</h3>
-        <p>Drivers clock in and out via the Driver companion app. Conductors via the Boskru app. Attendance syncs to timesheets automatically &mdash; no paper registers or manual entry.</p>
+        <p>Drivers clock in and out via the Driver companion app. Conductors via the Boskru app. Attendance syncs to timesheets automatically. You approve them, and approved hours feed payroll &mdash; no paper registers or manual entry.</p>
         <span class="feat-tag">Real-time &middot; Automated</span>
       </div>
       <div class="feat-card reveal">
         <div class="feat-icon fi-gold">&#128200;</div>
         <h3>Revenue &amp; Payments</h3>
-        <p>Track daily revenue by route, by bus, and by payment type. Reconcile accounts, record expenses, and see your profit margin in real time from the dashboard.</p>
+        <p>Track daily revenue by route, by bus, and by payment type. Keep bank and cash accounts, record expenses, bank fees, loans and other income, and see revenue, expenses and profit on your dashboard.</p>
         <span class="feat-tag">Cash &middot; RouteKad</span>
       </div>
       <div class="feat-card reveal">
@@ -386,7 +389,51 @@
         <p>Revenue summaries, payroll reports, fleet utilisation, staff timesheets, compliance status, and custom period exports &mdash; all printable and downloadable in CSV or print format.</p>
         <span class="feat-tag">Export &middot; Print</span>
       </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-gold">&#128274;</div>
+        <h3>Day Close</h3>
+        <p>One tap closes the day and locks its figures, so numbers can&apos;t change by accident. Your day totals are ready for your books or accounting system, and a correction is made on today&apos;s date, not by rewriting history.</p>
+        <span class="feat-tag">Locked &middot; Books-ready</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-orange">&#9981;</div>
+        <h3>Fuel Control</h3>
+        <p>Drivers log fuel from the Driver app, with receipt scanning on higher plans. Every refuel is tied to the right bus and flows into expenses. Bulk fuel depot stock can be tracked too.</p>
+        <span class="feat-tag">Per-bus fuel</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-teal">&#127380;</div>
+        <h3>Staff ID Cards &amp; Records</h3>
+        <p>Print staff ID cards with a QR code. Keep each driver&apos;s licence and PMV endorsement and each boskru&apos;s permit on file, with expiry reminders. Choose who in your team can edit and who can only view.</p>
+        <span class="feat-tag">QR &middot; Licences &middot; Roles</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-gold">&#128205;</div>
+        <h3>GPS &amp; Fuel Level <span style="font-size:11px;color:var(--text3);font-weight:400">(optional)</span></h3>
+        <p>Add GPS hardware to see where every bus is on a live map, with the fuel level shown on the bus. Switch it on only for the buses that have a tracker.</p>
+        <span class="feat-tag">Add-on &middot; Live map</span>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- SEE IT -->
+<section id="see" style="padding:80px 0;background:var(--bg1);border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:44px;text-align:center">
+      <span class="label label-orange" style="text-align:center">See it in action</span>
+      <h2 class="section-title" style="text-align:center">A day in your PMV business</h2>
+      <p class="section-sub" style="margin:0 auto;text-align:center">From the first scan on the bus to the day close in the evening &mdash; here is what you see on your phone.</p>
+    </div>
+    <div class="shots reveal">
+      <div class="shot"><img loading="lazy" src="images/pmv-dashboard.webp" width="640" height="1210" alt="Dashboard with revenue, expenses, profit, hours by staff and total funds (demo data)" /><h3>Your whole business</h3><p>Revenue, expenses, profit, hours by staff, alerts and total funds on one screen.</p></div>
+      <div class="shot"><img loading="lazy" src="images/pmv-fleet.webp" width="640" height="1210" alt="Bus page with PMV licence, MVIL, safety sticker and roadworthy expiry countdown (demo data)" /><h3>Every bus, every date</h3><p>PMV licence, MVIL, safety sticker and roadworthy &mdash; with reminders.</p></div>
+      <div class="shot"><img loading="lazy" src="images/pmv-routekad.webp" width="640" height="1210" alt="Boskru app scanning a RouteKad card and posting the fare to revenue (demo data)" /><h3>Cashless fares</h3><p>The conductor scans a RouteKad card. The fare posts to revenue.</p></div>
+      <div class="shot"><img loading="lazy" src="images/pmv-payroll.webp" width="640" height="1210" alt="Payroll with approved timesheets, pay run summary and payslips (demo data)" /><h3>Timesheets to payroll</h3><p>Approve hours, see the pay run, download payslips.</p></div>
+      <div class="shot"><img loading="lazy" src="images/pmv-closeday.webp" width="640" height="1210" alt="Close day screen showing day totals and Day closed confirmation (demo data)" /><h3>Close the day</h3><p>Figures locked and ready for your books.</p></div>
+      <div class="shot"><img loading="lazy" src="images/pmv-gps.webp" width="640" height="1210" alt="Live GPS map of a bus with fuel level bar (demo data)" /><h3>Live GPS <span style="color:var(--text3);font-weight:400">(optional)</span></h3><p>See each bus on the map, with its fuel level.</p></div>
+    </div>
+    <div class="demo-note">Screens shown with demo data</div>
   </div>
 </section>
 
@@ -410,14 +457,14 @@
         <div class="how-num">02</div>
         <div class="how-icon">&#128663;</div>
         <h3>Add your fleet and staff</h3>
-        <p>Register every bus with its plate, seating capacity, insurance, and licensing details. Add every driver and conductor with their tax number, superannuation number, and pay grade. Set their PIN for the companion apps.</p>
+        <p>Register every bus with its plate, seats and licence dates (PMV licence, MVIL, safety sticker, roadworthy). Add every driver and conductor with their tax number and pay grade, and set their PIN for the companion apps.</p>
         <div class="how-arrow">&#8594;</div>
       </div>
       <div class="how-card reveal">
         <div class="how-num">03</div>
         <div class="how-icon">&#128196;</div>
         <h3>Run payroll, track revenue, file compliance</h3>
-        <p>Run payroll and generate payslips. Export your tax file for lodgement. Generate your superannuation schedule. See your daily revenue per bus and per route. Monitor every compliance deadline from the dashboard.</p>
+        <p>Approve timesheets, run payroll and download payslips. Export your tax file for lodgement. See daily revenue per bus and per route, close the day, and watch every compliance deadline from the dashboard.</p>
       </div>
     </div>
   </div>
@@ -467,7 +514,7 @@
     <div class="reveal" style="margin-bottom:48px">
       <span class="label label-orange">PNG regulatory compliance</span>
       <h2 class="section-title">Every PNG authority.<br>Built in.</h2>
-      <p class="section-sub">Every compliance obligation for a PNG PMV operator is tracked, managed, and exportable from day one &mdash; no setup, no configuration required.</p>
+      <p class="section-sub">The compliance dates a PNG PMV operator has to watch are tracked, with reminders, from day one.</p>
     </div>
     <div class="compliance-grid">
       <div class="comp-card reveal">
@@ -484,9 +531,9 @@
           <span class="comp-icon">&#127963;</span>
           <span class="comp-badge" style="background:rgba(252,209,22,.08);border:1px solid rgba(252,209,22,.15);color:var(--gold)">Super</span>
         </div>
-        <h3>Superannuation</h3>
-        <p>Automatically calculates employer and employee superannuation contributions each payroll run. Generates the schedule export ready for payment to the superannuation fund (Nasfund). Monthly due dates tracked and alerted so you never miss a contribution.</p>
-        <div class="comp-tags"><span class="comp-tag">Employer Contribution</span><span class="comp-tag">Employee Contribution</span><span class="comp-tag">Schedule Export</span><span class="comp-tag">Nasfund</span></div>
+        <h3>Staff Fund &amp; Superannuation</h3>
+        <p>Staff Fund contributions are calculated each pay run by default. If your business pays into superannuation, switch on Nasfund and 3T PMV calculates employer and employee contributions and prepares the schedule export. Monthly due dates are tracked so you never miss one.</p>
+        <div class="comp-tags"><span class="comp-tag">Employer Contribution</span><span class="comp-tag">Employee Contribution</span><span class="comp-tag">Staff Fund</span><span class="comp-tag">Schedule Export</span><span class="comp-tag">Nasfund (optional)</span></div>
       </div>
       <div class="comp-card reveal">
         <div class="comp-card-head">
@@ -494,8 +541,8 @@
           <span class="comp-badge" style="background:rgba(11,107,122,.15);border:1px solid rgba(11,107,122,.25);color:#4dd0e1">Road</span>
         </div>
         <h3>Road &amp; Transport Compliance</h3>
-        <p>Track every vehicle&apos;s road transport registration (RTA), PMV operator permit (CPTA), motor vehicle insurance (MVIL), and all provincial transport authority licences. Expiry alerts ensure no bus operates out of compliance across all 22 provinces.</p>
-        <div class="comp-tags"><span class="comp-tag">RTA</span><span class="comp-tag">CPTA</span><span class="comp-tag">MVIL</span><span class="comp-tag">Provincial PTAs</span><span class="comp-tag">Morobe PTA</span><span class="comp-tag">Madang PTA</span></div>
+        <p>Track the PMV licence for every bus, MVIL registration, safety sticker and roadworthy certificate. Keep each driver&apos;s licence with PMV endorsement and each boskru&apos;s permit on file. Reminders arrive before anything expires.</p>
+        <div class="comp-tags"><span class="comp-tag">PMV Licence</span><span class="comp-tag">MVIL</span><span class="comp-tag">Safety Sticker</span><span class="comp-tag">Roadworthy</span><span class="comp-tag">Driver PMV Endorsement</span><span class="comp-tag">Boskru Permit</span></div>
       </div>
       <div class="comp-card reveal">
         <div class="comp-card-head">
@@ -521,7 +568,7 @@
           <span class="comp-badge" style="background:rgba(252,209,22,.08);border:1px solid rgba(252,209,22,.15);color:var(--gold)">22 Provinces</span>
         </div>
         <h3>All of Papua New Guinea</h3>
-        <p>3T PMV works for operators in every province &mdash; NCD, Morobe, Western Highlands, Madang, East Sepik, and all others. Provincial transport authority licences tracked per vehicle. Cloud-based so you can manage from anywhere.</p>
+        <p>3T PMV works for operators in every province &mdash; NCD, Morobe, Western Highlands, Madang, East Sepik, and all others. Cloud-based, so you can manage your buses from anywhere.</p>
         <div class="comp-tags"><span class="comp-tag">All 22 Provinces</span><span class="comp-tag">Cloud-based</span><span class="comp-tag">PNG Timezone (PGT)</span><span class="comp-tag">PGK Currency</span></div>
       </div>
     </div>
@@ -572,7 +619,7 @@
         <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:8px 0 6px">Core</div>
         <div class="price-feat">Dashboard &amp; fleet management</div>
         <div class="price-feat">Staff, routes &amp; operations</div>
-        <div class="price-feat">Payroll (SWT + superannuation)</div>
+        <div class="price-feat">Payroll (SWT + staff fund / super)</div>
         <div class="price-feat">Revenue &amp; treasury</div>
         <div class="price-feat">Compliance reminders</div>
         <div class="price-feat">10 report tabs</div>
@@ -759,6 +806,7 @@
       <p class="section-sub" style="margin:16px auto 0;text-align:center">Start your 21-day free trial today. No credit card. No commitment. Set up in minutes. Port Moresby-based support team ready to help you get started.</p>
       <div class="cta-actions">
         <a href="https://pmv.3t-ms.com/signup" class="btn btn-primary btn-lg">Start free trial &#8599;</a>
+        <a href="https://wa.me/67575552757?text=Hi%2C%20I%27d%20like%20to%20try%203T%20PMV" class="btn btn-wa btn-lg">WhatsApp us</a>
         <a href="mailto:admin@3t-ms.com?subject=3T PMV Enquiry" class="btn btn-outline btn-lg">Talk to us</a>
       </div>
       <div class="cta-trust">
@@ -783,11 +831,14 @@
         </div>
         <p>Papua New Guinea&apos;s complete PMV fleet management platform.</p>
         <p style="margin-top:8px"><a href="mailto:admin@3t-ms.com" style="color:var(--orange);font-size:12px;font-family:var(--mono)">admin@3t-ms.com</a></p>
+        <p style="font-size:11px;color:var(--text3);margin-top:4px;font-family:var(--mono)">WhatsApp +675 7555 2757</p>
+        <p style="font-size:11px;color:var(--text3);margin-top:4px;font-family:var(--mono)">Support +675 7506 9447</p>
         <p style="font-size:11px;color:var(--text3);margin-top:4px;font-family:var(--mono)">Port Moresby, NCD, PNG</p>
       </div>
       <div class="footer-links">
         <h4>Product</h4>
         <a href="#features">Features</a>
+        <a href="#see">See it</a>
         <a href="#apps">Companion apps</a>
         <a href="#compliance">Compliance</a>
         <a href="#pricing">Pricing</a>
